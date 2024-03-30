@@ -27,12 +27,12 @@ EasyAKS is an Android application designed to help users prepare for exams by te
 1. **Next Question**: Users can proceed to the next question by tapping the “Next” button.
 1. **End of Quiz**: Once all questions are answered, the app will display the user’s score and allow them to restart the quiz.
 
-   **Contributing**
+**Contributing**
 
-   Contributions to EasyAKS are welcome! If you find any issues or have suggestions for improvement, feel free to create a pull request or open an issue.
+Contributions to EasyAKS are welcome! If you find any issues or have suggestions for improvement, feel free to create a pull request or open an issue.
 
-   **License**
+**License**
 
-   This project is licensed under the MIT License - see the LICENSE file for details.
+This project is licensed under the MIT License - see the LICENSE file for details.
 
 
