@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fetch Example</title>
+</head>
+<body>
+    <button id="getDataBtn">Get Data</button>
+    <div id="dataContainer"></div>
+
+    <script>
+        document.getElementById('getDataBtn').addEventListener('click', () => {
+            fetch('http://localhost:3000/data')
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById('dataContainer').innerText = JSON.stringify(data);
+                })
+                .catch(error => console.error('Error:', error));
+        });
+    </script>
+</body>
+</html>
