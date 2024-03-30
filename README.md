@@ -4,4 +4,4 @@ Parts of project(branches):
 # [Mobile](https://github.com/EasyAKS/TS/tree/Android-Denis)
 # [Backend](https://github.com/EasyAKS/TS/tree/Back-Ivan)
 
-# [docs] (https://github.com/EasyAKS/TS/tree/main/Docs%20for%20labs)
+# [Docs](https://github.com/EasyAKS/TS/tree/main/Docs%20for%20labs)
