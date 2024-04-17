@@ -5,6 +5,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.denishrynkevich.easyaks.screens.MainScreen
+import com.denishrynkevich.easyaks.screens.QuizScreen
 import com.denishrynkevich.easyaks.screens.SplashScreen
 import com.denishrynkevich.easyaks.utils.Constants
 
@@ -25,10 +26,10 @@ fun SetupNavHost(navController: NavHostController) {
             SplashScreen(navController = navController)
         }
         composable(route = Screens.Main.route) {
-            MainScreen()
+            MainScreen(navController = navController)
         }
         composable(route = Screens.Quiz.route) {
-
+            QuizScreen(navController = navController)
         }
         composable(route = Screens.Results.route){
 
