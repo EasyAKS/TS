@@ -9,6 +9,14 @@ lifecycleRuntimeKtx = "2.7.0"
 activityCompose = "1.8.2"
 composeBom = "2024.04.00"
 navigation-compose = "2.7.7"
+hilt-android = "2.49"
+retrofit_version = "2.9.0"
+okhttp_version = "4.9.0"
+coroutines_version = "1.7.1"
+lifecycle_version = "2.7.0"
+activity_version = "1.8.2"
+runtime_version = "1.6.6"
+hilt-navigation-compose = "1.2.0"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -25,9 +33,28 @@ androidx-ui-tooling-preview = { group = "androidx.compose.ui", name = "ui-toolin
 androidx-ui-test-manifest = { group = "androidx.compose.ui", name = "ui-test-manifest" }
 androidx-ui-test-junit4 = { group = "androidx.compose.ui", name = "ui-test-junit4" }
 androidx-material3 = { group = "androidx.compose.material3", name = "material3" }
+
 navigation-compose = { group = "androidx.navigation", name = "navigation-compose", version.ref = "navigation-compose" }
+retrofit = { group = "com.squareup.retrofit2", name = "retrofit", version.ref = "retrofit_version" }
+converter-gson = { group = "com.squareup.retrofit2", name = "converter-gson", version.ref = "retrofit_version" }
+okhttp = { group = "com.squareup.okhttp3", name = "okhttp", version.ref = "okhttp_version" }
+
+kotlinx-coroutines-core = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-core", version.ref = "coroutines_version" }
+kotlinx-coroutines-android = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-android", version.ref = "coroutines_version" }
+
+lifecycle-viewmodel-ktx = { group = "androidx.lifecycle", name = "lifecycle-viewmodel-ktx", version.ref = "lifecycle_version" }
+lifecycle-runtime-ktx = { group = "androidx.lifecycle", name = "lifecycle-runtime-ktx", version.ref = "lifecycle_version" }
+lifecycle-livedata-ktx = { group = "androidx.lifecycle", name = "lifecycle-livedata-ktx", version.ref = "lifecycle_version" }
+activity-ktx = { group = "androidx.activity", name = "activity-ktx", version.ref = "activity_version" }
+runtime-livedata = { group = "androidx.compose.runtime", name = "runtime-livedata", version.ref = "runtime_version" }
+
+hilt-android = { group = "com.google.dagger", name = "hilt-android", version.ref = "hilt-android" }
+hilt-android-compiler = { group = "com.google.dagger", name = "hilt-android-compiler", version.ref = "hilt-android" }
+hilt-navigation-compose = { group = "androidx.hilt", name = "hilt-navigation-compose", version.ref = "hilt-navigation-compose"}
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }
 jetbrainsKotlinAndroid = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
+daggerHilt = { id = "com.google.dagger.hilt.android", version.ref = "hilt-android" }
+kotlinKapt = { id = "org.jetbrains.kotlin.kapt", version.ref = "kotlin" }
 

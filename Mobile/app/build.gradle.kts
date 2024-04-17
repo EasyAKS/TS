@@ -1,6 +1,9 @@
+
 plugins {
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.jetbrainsKotlinAndroid)
+    alias(libs.plugins.kotlinKapt)
+    alias(libs.plugins.daggerHilt)
 }
 
 android {
@@ -69,4 +72,20 @@ dependencies {
 
     // Navigation Compose
     implementation(libs.navigation.compose)
+    implementation(libs.retrofit)
+    implementation(libs.converter.gson)
+    implementation(libs.okhttp)
+    implementation(libs.kotlinx.coroutines.core)
+    implementation(libs.kotlinx.coroutines.android)
+    implementation(libs.lifecycle.viewmodel.ktx)
+    implementation(libs.lifecycle.runtime.ktx)
+    implementation(libs.lifecycle.livedata.ktx)
+    implementation(libs.activity.ktx)
+    implementation(libs.runtime.livedata)
+    implementation(libs.hilt.android)
+    kapt(libs.hilt.android.compiler)
+    implementation(libs.hilt.navigation.compose)
+
+
+
 }

@@ -6,8 +6,9 @@ import androidx.activity.compose.setContent
 import androidx.navigation.compose.rememberNavController
 import com.denishrynkevich.easyaks.navigation.SetupNavHost
 import com.denishrynkevich.easyaks.ui.theme.EasyAKSTheme
+import dagger.hilt.android.AndroidEntryPoint
 
-
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
