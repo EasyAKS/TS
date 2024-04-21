@@ -3,7 +3,7 @@ const globalQuestions = []
 
 const getData = async () => {
     try {
-        const response = await fetch('http://localhost:5500/src/scripts/response.json');
+        const response = await fetch('https://webhook.latenode.com/2326/prod/easyaks');
         if (!response.ok) {
             throw new Error('Network response was not ok');
         }
@@ -41,7 +41,7 @@ const createThemeNode = (element) => {
 
 const fillButtonsWithAnswers = (id) => {
     const answers_box = document.querySelector('.answers_box');
-    const answerButtons = Array.from(answers_box.querySelectorAll('.answer_button'));
+    const answerButtons = Array.from(answers_box.querySelectorAll('.ans_text'));
 
     answerButtons.forEach((button, index) => {
         const question = globalQuestions.find(x => x.id === id);
@@ -58,14 +58,17 @@ const generateID = () => {
 document.querySelector('.themes_root').addEventListener('click', (e) => {
     if(!e.target.closest('.questionElement')) return
     else {
-        document.querySelector('.question_window').innerText = globalQuestions.find(x => x.id === e.target.closest('.questionElement').getAttribute('id')).questionFullDescription
+        document.querySelector('.question_text').innerText = globalQuestions.find(x => x.id === e.target.closest('.questionElement').getAttribute('id')).questionFullDescription
         fillButtonsWithAnswers(e.target.closest('.questionElement').getAttribute('id'))
     }
 })
 
 document.querySelector('.answers_box').addEventListener('click', (e) => {
     if(!e.target.closest('.answer_button')) return
-    else document.querySelector('.question_window').innerText = 'Your answer is ' + e.target.closest('.answer_button').innerText
+    else document.querySelector('.question_text').innerText = 'Your answer is ' + e.target.closest('.ans_text').innerText
 })
 
-getData()
+window.addEventListener('DOMContentLoaded', () => {
+    getData()
+})
+
