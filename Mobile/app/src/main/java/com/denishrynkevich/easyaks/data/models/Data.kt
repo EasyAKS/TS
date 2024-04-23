@@ -1,5 +1,5 @@
 package com.denishrynkevich.easyaks.data.models
 
-data class Questions(
+data class Data(
     val themes: List<Theme>
 )

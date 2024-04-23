@@ -1,11 +1,10 @@
 package com.denishrynkevich.easyaks.data.network
 
-import com.denishrynkevich.easyaks.data.models.Question
-import com.denishrynkevich.easyaks.data.models.Questions
+import okhttp3.ResponseBody
 import retrofit2.Response
 import retrofit2.http.GET
 
 interface ApiService {
-    @GET("/questions")
-    suspend fun getAllQuestions(): Response<List<Questions>>
+    @GET("/2326/prod/themes")
+    suspend fun getAllQuestions(): Response<ResponseBody>
 }

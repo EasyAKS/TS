@@ -70,7 +70,6 @@ dependencies {
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
 
-    // Navigation Compose
     implementation(libs.navigation.compose)
     implementation(libs.retrofit)
     implementation(libs.converter.gson)
@@ -85,7 +84,7 @@ dependencies {
     implementation(libs.hilt.android)
     kapt(libs.hilt.android.compiler)
     implementation(libs.hilt.navigation.compose)
-
-
+    testImplementation(libs.netmock.server)
+    testImplementation(libs.mockwebserver)
 
 }

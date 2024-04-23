@@ -1,5 +1,4 @@
 package com.denishrynkevich.easyaks.di
-
 import com.denishrynkevich.easyaks.data.network.ApiService
 import dagger.Module
 import dagger.Provides
@@ -12,13 +11,14 @@ import javax.inject.Singleton
 @Module
 @InstallIn(SingletonComponent::class)
 object AppModule {
-    const val BASE_URL = "https://localhost:8080/"
+    @Provides
+    fun baseUrl() = "https://webhook.latenode.com/"
 
     @Provides
     @Singleton
-    fun provideRetrofit() : ApiService =
+    fun provideRetrofit(baseUrl: String) : ApiService =
         Retrofit.Builder()
-            .baseUrl(BASE_URL)
+            .baseUrl(baseUrl)
             .addConverterFactory(GsonConverterFactory.create())
             .build()
             .create(ApiService::class.java)
