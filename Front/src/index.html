@@ -11,15 +11,21 @@
         <div class="nav_container">
             <div class="nav-buttons_container">
                 <a class="nav_button" href="#">Списки вопросов</a>
-                <a class="nav_button" href="#">Темы</a>
+                <a class="nav_button" id="themes_tab" href="#">Темы
+                    <div id="themes_window">
+                        <ul id="themes_in_window"></ul>
+                    </div>
+                </a>
                 <a class="nav_button" href="#">Статистика</a>
                 <a class="nav_button" href="#">Влад</a>
                 <a class="nav_button" href="#">Ваня</a>
             </div>
         </div>
+        
         <main class="main_window">
             <section class="left_list">
-                <ul class="themes_root"></ul>
+                <div class="themes_root"></div>
+                <ul class="questions_left_list"></ul>
             </section>
             <section class="questions_section">
                 <div class="image-logo-container">
