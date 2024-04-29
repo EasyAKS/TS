@@ -1,11 +1,15 @@
 let globalData = {}
 const globalQuestions = []
-let currentQuestion
+let currentQuestion = 0
+let currentQuestionNumber = 0
 let currentTheme
+let nextNumber
+let ButtonSelected = false
 
 const getData = async () => {
     try {
-        const response = await fetch('https://webhook.latenode.com/2326/prod/themes');
+        //const response = await fetch('https://webhook.latenode.com/2326/prod/themes');
+        const response = await fetch('http://localhost:5500/scripts/data.json')
         if (!response.ok) {
             throw new Error('Network response was not ok');
         }
@@ -55,25 +59,33 @@ const fillButtonsWithAnswers = (id) => {
     const answers_box = document.querySelector('.answers_box');
     const answerButtons = Array.from(answers_box.querySelectorAll('.ans_text'));
 
+    const question = globalQuestions.find(x => x.id === id);
+    const keysArray = Object.keys(question.answers);
+    const shuffledKeys = shuffleArray(keysArray);
+
     answerButtons.forEach((button, index) => {
-        const question = globalQuestions.find(x => x.id === id);
-        const keysArray = Array.from(Object.keys(question.answers));
-        const key = keysArray[index];
+        const key = shuffledKeys[index];
         button.innerText = question.answers[key];
+        button.setAttribute('id', id);
     });
+
+    Array.from(answers_box.querySelectorAll('.answer_button')).forEach(button => {button.classList.remove('correct', 'wrong'); button.classList.add('hoverable')});
+    
+}
+
+function shuffleArray(array) {
+    const shuffledArray = array.slice();
+    for (let i = shuffledArray.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [shuffledArray[i], shuffledArray[j]] = [shuffledArray[j], shuffledArray[i]];
+    }
+    return shuffledArray;
 }
 
 const generateID = () => {
     return Math.floor(Math.random() * Date.now()).toString(16)
 }
 
-// document.querySelector('.themes_root').addEventListener('click', (e) => {
-//     if(!e.target.closest('.questionElement')) return
-//     else {
-//         document.querySelector('.question_text').innerText = globalQuestions.find(x => x.id === e.target.closest('.questionElement').getAttribute('id')).questionFullDescription
-//         fillButtonsWithAnswers(e.target.closest('.questionElement').getAttribute('id'))
-//     }
-// })
 
 const createQuestion = (questionName, index) => {
     const question = document.createElement('li')
@@ -86,13 +98,42 @@ const createQuestion = (questionName, index) => {
 const setCurrentQuestion = (index) => {
     document.querySelectorAll('.question_element').forEach(x => x.classList.remove('question_current'))
     document.querySelectorAll('.question_element')[index].classList.add('question_current')
-    currentQuestion = globalQuestions.find(x => x.themeName === currentTheme && x.questionNumber === 'Question ' + index).id
-    debugger
+    currentQuestion = globalQuestions.find(x => x.themeName === currentTheme && x.questionNumber === 'Question ' + (index + 1)).id
+    fillButtonsWithAnswers(currentQuestion)
+    setQuestion(currentQuestion)
+    document.querySelector('#question_number').innerText = index + 1
+}
+
+const setQuestion = (id) => {
+    const q = document.querySelector('.question_text')
+    q.innerText = globalQuestions.find(x => x.id === id).questionFullDescription
+}
+
+const setButtonColor = (isCorrect, button) => {
+    if (!ButtonSelected) {
+        button.classList.add(isCorrect ? 'correct' : 'wrong')
+        ButtonSelected = true
+        setHoverStyle(button, isCorrect)
+        return
+    }
+}
+
+const setHoverStyle = (button, isCorrect) => {
+    button.classList.remove('hoverable')
 }
 
 document.querySelector('.answers_box').addEventListener('click', (e) => {
-    if(!e.target.closest('.answer_button')) return
-    else document.querySelector('.question_text').innerText = 'Your answer is ' + e.target.closest('.ans_text').innerText
+    if(!e.target.closest('.answer_button') || ButtonSelected) return
+    else {
+        const id = currentQuestion
+        const ans = globalQuestions.find(x => x.id === id)
+        const text = e.target.closest('.answer_button').childNodes[1].innerText
+        const len = globalData.themes.find(x => x.themeName === currentTheme).questions.length
+        let correct = ans.answers.correct === text
+        if (correct && currentQuestionNumber < len - 1) nextNumber = currentQuestionNumber + 1
+        else nextNumber = 0
+        setButtonColor(correct, e.target.closest('.answer_button'))
+    }
 })
 
 document.querySelector('#themes_window').addEventListener('click', (e) => {
@@ -102,10 +143,17 @@ document.querySelector('#themes_window').addEventListener('click', (e) => {
     currentTheme = e.target.closest('.theme_element').innerText   //setting current theme
     globalData.themes.find(x => x.themeName === e.target.closest('.theme_element').innerText)
         .questions.forEach((y, index, self) => document.querySelector('.questions_left_list').appendChild(createQuestion(y.questionNumber, index)))
-    setCurrentQuestion(0)
+    currentQuestionNumber = 0
+    setCurrentQuestion(currentQuestionNumber)
+})
+
+document.querySelector('#next_button').addEventListener('click', () => {
+    if (!ButtonSelected) return
+    currentQuestionNumber = nextNumber
+    setCurrentQuestion(currentQuestionNumber)
+    ButtonSelected = false
 })
 
 window.addEventListener('DOMContentLoaded', () => {
     getData()
 })
-
