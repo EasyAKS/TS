@@ -1,12 +1,9 @@
-// Подключение необходимых зависимостей
 const express = require('express');
 const { Pool } = require('pg');
 
-// Создание экземпляра приложения Express
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-// Добавляем middleware для обработки CORS
 app.use((req, res, next) => {
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
@@ -14,7 +11,6 @@ app.use((req, res, next) => {
   next();
 });
 
-// Параметры подключения к базе данных PostgreSQL
 const pool = new Pool({
   user: 'postgres',
   host: 'localhost',
@@ -23,14 +19,17 @@ const pool = new Pool({
   port: 5432,
 });
 
-// Маршрут для обработки запросов на получение данных из базы данных
+// Обработка ошибок при подключении к базе данных
+pool.on('error', (err, client) => {
+  console.error('Unexpected error on idle client', err);
+  process.exit(-1);
+});
+
 app.get('/data', async (req, res) => {
   try {
-    // Выполнение запроса к базе данных PostgreSQL для получения данных о темах и вопросах
     const themesQuery = await pool.query('SELECT * FROM themes');
     const questionsQuery = await pool.query('SELECT * FROM questions');
 
-    // Преобразование данных в формат JSON
     const themes = themesQuery.rows.map(theme => ({
       themeName: theme.theme_name,
       questions: questionsQuery.rows
@@ -48,16 +47,16 @@ app.get('/data', async (req, res) => {
         })),
     }));
 
-    // Формирование и отправка JSON-ответа
     res.setHeader('Content-Type', 'application/json');
-    res.send(JSON.stringify({ themes }, null, 2)); // Отправляем отформатированный JSON
+    res.send(JSON.stringify({ themes }, null, 2));
   } catch (err) {
     console.error('Error executing query', err.stack);
     res.status(500).send('Internal Server Error');
   }
 });
 
-// Запуск сервера на указанном порту
+module.exports = app;
+
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });
