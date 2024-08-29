@@ -19,7 +19,6 @@ const pool = new Pool({
   port: 5432,
 });
 
-// Обработка ошибок при подключении к базе данных
 pool.on('error', (err, client) => {
   console.error('Unexpected error on idle client', err);
   process.exit(-1);

@@ -1,5 +1,5 @@
 const request = require('supertest');
-const app = require('./server'); // Подключение вашего приложения Express
+const app = require('./server'); 
 
 let server;
 
